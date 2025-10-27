@@ -31,7 +31,8 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Aconteceu algum erro!", http.StatusInternalServerError)
 		return
 	}
-	t.Execute(w, nil)
+	// o segundo argumento é o nome do template
+	t.ExecuteTemplate(w, "home" ,nil)
 
 }
 
@@ -48,6 +49,7 @@ func Page2(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Aconteceu algum erro!", http.StatusInternalServerError)
 		return
 	}
-	t.ExecuteTemplate(w, t.Name(), nil)
+	// o segundo argumento é o nome do template
+	t.ExecuteTemplate(w, "page2", nil)
 
 }
