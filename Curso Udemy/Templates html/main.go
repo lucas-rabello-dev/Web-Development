@@ -17,25 +17,26 @@ func main() {
 	fmt.Println("Rodando na porta: http://localhost" + porta)
 	http.ListenAndServe(porta, mux)
 }
-
+// serve a home
 func Home(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
-		w.Header().Set("Alllow", http.MethodGet)
+		w.Header().Set("Allow", http.MethodGet)
 		http.Error(w, "Método inválido", http.StatusMethodNotAllowed) // 405
 		return 
 	}
-	w.WriteHeader(http.StatusOK) // 200
 
 	t, err := template.ParseFiles("./interface/home/home.html")
 	if err != nil {
 		http.Error(w, "Aconteceu algum erro!", http.StatusInternalServerError)
 		return
 	}
+	w.WriteHeader(http.StatusOK) // 200
 	// o segundo argumento é o nome do template
 	t.ExecuteTemplate(w, "home" ,nil)
 
 }
 
+// serve a segunda página
 func Page2(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		w.Header().Set("Allow", http.MethodGet)
