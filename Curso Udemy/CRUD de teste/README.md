@@ -1,4 +1,4 @@
-meu-projeto/
+```meu-projeto/
 ├── main.go
 ├── go.mod
 │
@@ -28,3 +28,4 @@ meu-projeto/
     ├── css/
     ├── js/
     └── img/
+``
