@@ -17,8 +17,12 @@ const filePage2 string = "./interface/page1/page2/page2.html"
 func main() {
 	mux := http.NewServeMux()	
 
+	// em Dir() podem ser dois caminhos: o absoluto (onde está o arquivo dentro do projeto) e o relativo (normalmente quando tem varios outros styles.css)
+	staticHandler := http.FileServer(http.Dir("/static/css/"))
+	mux.Handle("/static/", http.StripPrefix("/static/", staticHandler))
 
-	mux.HandleFunc("/home", home)
+
+	mux.HandleFunc("/home/", home)
 	mux.HandleFunc("/home/page1", page1)
 	mux.HandleFunc("/home/page1/page2", page2)
 
@@ -29,7 +33,11 @@ func main() {
 
 
 func home(w http.ResponseWriter, r *http.Request) {
-	
+	if r.URL.Path != "/home/"  {
+		http.NotFound(w, r) // responde a página como 404
+		return
+	}
+
 	if r.Method != http.MethodGet {
 		w.Header().Set("Allow", http.MethodGet)
 		http.Error(w, "Método inválido", http.StatusMethodNotAllowed)
