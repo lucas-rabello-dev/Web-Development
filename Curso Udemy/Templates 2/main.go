@@ -18,7 +18,15 @@ func main() {
 	mux := http.NewServeMux()	
 
 	// em Dir() podem ser dois caminhos: o absoluto (onde está o arquivo dentro do projeto) e o relativo (normalmente quando tem varios outros styles.css)
-	staticHandler := http.FileServer(http.Dir("/static/css/"))
+	// servindo a pasta do static para que os elementos possam ser acessados
+	staticHandler := http.FileServer(http.Dir("./interface/static/"))
+	// o primeiro /static/ é o nome que serve o dict que escrevi aqui em cima
+	// tipo: a gente nomeou o "./interface/static" de /static/ pique isso
+	// o segundo remove esse /static/ para que:
+	//URL que chegou: /static/css/css-home/style.css
+	// StripPrefix tira o /static/
+	// nos usamos o /static/ para acessar o "./interface/static" e ai tiramos por que já estamos servindo ele
+	// URL que o FileServer realmente recebe: /css/home/style.css
 	mux.Handle("/static/", http.StripPrefix("/static/", staticHandler))
 
 
