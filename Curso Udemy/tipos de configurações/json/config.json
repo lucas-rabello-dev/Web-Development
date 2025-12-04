@@ -1,0 +1,6 @@
+{
+    "server": {
+        "porta":5000,
+        "outro":"/sla/mano"
+    }
+}
